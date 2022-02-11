@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import ColorBox from "./ColorBox";
+import "rc-slider/assets/index.css";
 import "./Pallete.css";
 //slider
 import Slider from "rc-slider";
-import "rc-slider/assets/index.css";
 
 class Pallete extends Component {
   constructor(props) {
@@ -17,22 +17,24 @@ class Pallete extends Component {
     this.setState({ level });
   }
   render() {
+    const { level } = this.state;
+    const { colors, paletteName, emoji } = this.props.pallete;
     //colors will be an array that contains many arrays of different shades of colors
-    const colorBoxes = this.props.pallete.colors[this.state.level].map(
-      (color) => {
-        return <ColorBox background={color.hex} name={color.name} />;
-      }
-    );
+    const colorBoxes = colors[level].map((color) => {
+      return <ColorBox background={color.hex} name={color.name} />;
+    });
 
     return (
       <div className="Pallete">
-        <Slider
-          defaulValue={this.state.level}
-          min={100}
-          max={900}
-          step={100}
-          onAfterChange={this.changeLevel}
-        />
+        <div className="slider">
+          <Slider
+            defaulValue={this.state.level}
+            min={100}
+            max={900}
+            step={100}
+            onAfterChange={this.changeLevel}
+          />
+        </div>
         <div className="Pallete-colors">{colorBoxes}</div>
         {/* footer goes here */}
       </div>
