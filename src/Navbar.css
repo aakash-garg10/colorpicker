@@ -4,6 +4,10 @@ body {
   font-family: "Prompt", sans-serif;
   overflow: hidden;
 }
+/* *{
+  margin: 0;
+  padding: 0;
+} */
 
 .Navbar {
   display: flex;

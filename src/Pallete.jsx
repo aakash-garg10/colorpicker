@@ -18,14 +18,14 @@ class Pallete extends Component {
 
   //function that sets format on the select
   changeFormat(val) {
-    this.setState({ format: val});
+    this.setState({ format: val });
   }
   render() {
     const { level, format } = this.state;
     const { colors, paletteName, emoji } = this.props.pallete;
     //colors will be an array that contains many arrays of different shades of colors
     const colorBoxes = colors[level].map((color) => {
-      return <ColorBox background={color[format]} name={color.name} />;
+      return <ColorBox background={color[format]} name={color.name} key={color.id} />;
     });
 
     return (
@@ -37,7 +37,10 @@ class Pallete extends Component {
           changeFormat={this.changeFormat}
         />
         <div className="Pallete-colors">{colorBoxes}</div>
-        {/* footer goes here */}
+        <footer className="Pallete-Footer">
+          {paletteName}
+          <span className="emoji">{emoji}</span>
+        </footer>
       </div>
     );
   }
