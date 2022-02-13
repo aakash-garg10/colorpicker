@@ -49,3 +49,11 @@ body {
   margin-left: -8px;
   margin-top: -5px;
 }
+.select-container{
+  margin-right: 1rem;
+  margin-left: auto;
+}
+.select-container fieldset{
+  border: none;
+  /* padding: 0; */
+}

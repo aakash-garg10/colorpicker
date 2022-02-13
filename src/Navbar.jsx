@@ -5,17 +5,24 @@ import MenuItem from "@mui/material/MenuItem";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "./Navbar.css";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 export class Navbar extends Component {
   constructor(props) {
     super(props);
-    this.state = { format: "hex" };
+    this.state = { format: "hex", open: false, message: "Format Changed" };
     this.changeFormat = this.changeFormat.bind(this);
+    this.closeSnackbar = this.closeSnackbar.bind(this);
   }
 
   changeFormat(e) {
-    this.setState({ format: e.target.value });
+    this.setState({ format: e.target.value, open: true });
     this.props.changeFormat(e.target.value);
+  }
+  closeSnackbar() {
+    this.setState({ open: false });
   }
   render() {
     const { level, changeLevel } = this.props;
@@ -24,7 +31,7 @@ export class Navbar extends Component {
     return (
       <header className="Navbar">
         <div className="logo">
-          <a href="#">Color-Picker</a>
+          <a href="/">Color-Picker</a>
         </div>
         <div className="slider-container">
           <span>Level: {level}</span>
@@ -41,10 +48,28 @@ export class Navbar extends Component {
         <div className="select-container">
           <Select value={format} onChange={this.changeFormat}>
             <MenuItem value="hex">Hex - #ffffff</MenuItem>
-            <MenuItem value="rgb">RGB - rgb(255, 255, 255)</MenuItem>
-            <MenuItem value="rgba">RGBA - rgba(255, 255, 255,0.1)</MenuItem>
+            <MenuItem value="rgb">RGB - rgb (255, 255, 255)</MenuItem>
+            <MenuItem value="rgba">RGBA - rgba (255, 255, 255,0.1)</MenuItem>
           </Select>
         </div>
+        {/* //the little tab that appears on changing the color format */}
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={this.state.open}
+          variant="standard"
+          autoHideDuration={2000}
+          message={this.state.message}
+          onClose={this.closeSnackbar}
+          action={[
+            <IconButton
+              onClick={this.closeSnackbar}
+              color="inherit"
+              key="close"
+            >
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />
       </header>
     );
   }
